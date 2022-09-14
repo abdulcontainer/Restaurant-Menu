@@ -1,8 +1,22 @@
 {
   "item": [
     {
-      "name": "text",
+      "name": "Rice",
       "price": "12",
+      "id": 1
+    }
+  ],
+  "user": [
+    {
+      "name": "admin",
+      "email": "admin@admin.com",
+      "password": "admin123",
+      "id": 0
+    },
+    {
+      "name": "User",
+      "email": "user@user.com",
+      "password": "user123",
       "id": 1
     }
   ]

@@ -58,7 +58,7 @@ const EditItem = () => {
           </FormControl>
           <Box my={3}>
             <Button variant="contained" onClick={() => editItemDetails()} color="primary">Update Item</Button>
-            <Button onClick={() => history.push("/itemlist")} variant="contained" color="secondary" align="center" style={{ margin: '0px 20px' }}>Cancel</Button>
+            <Button onClick={() => history.push("/allItems")} variant="contained" color="secondary" align="center" style={{ margin: '0px 20px' }}>Cancel</Button>
           </Box>
         </FormGroup>
       </Box>

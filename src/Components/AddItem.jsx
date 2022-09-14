@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Container, Typography, FormControl, InputLabel, Input, Box, FormGroup, Button, makeStyles } from '@material-ui/core';
 import { addItem } from '../service/api';
 import { useHistory } from 'react-router-dom';
@@ -23,13 +23,20 @@ const AddItem = () => {
 
   const history = useHistory();
 
+  const user = localStorage.getItem('role');
+
+  useEffect(() => {
+    if(user!=="admin")
+    history.push('/allItems');
+  }, [user])
+
   const onValueChange = (e) => {
     setItem({ ...item, [e.target.name]: e.target.value });
   }
 
   const addItemDetails = async () => {
     await addItem(item);
-    history.push('/itemlist');
+    history.push('/allItems');
   }
 
   return (
@@ -47,13 +54,12 @@ const AddItem = () => {
           </FormControl>
           <Box my={3}>
             <Button variant="contained" onClick={() => addItemDetails()} color="primary" align="center">Add Item</Button>
-            <Button onClick={() => history.push("/itemlist")} variant="contained" color="secondary" align="center" style={{ margin: '0px 20px' }}>Cancel</Button>
+            <Button onClick={() => history.push("/allitems")} variant="contained" color="secondary" align="center" style={{ margin: '0px 20px' }}>Cancel</Button>
           </Box>
         </FormGroup>
       </Box>
     </Container>
   )
 }
-
 
 export default AddItem;

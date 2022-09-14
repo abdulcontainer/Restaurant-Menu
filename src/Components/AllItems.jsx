@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { Container, Table, TableCell, TableRow, TableHead, TableBody, makeStyles, Button } from '@material-ui/core';
-import { deleteItem, getallItems } from '../service/api';
+import { Table, TableCell, TableRow, TableHead, TableBody, makeStyles, Button } from '@material-ui/core';
+import { deleteItem, getallItems, orderItem} from '../service/api';
 import { Link } from 'react-router-dom';
 
 const useStyle = makeStyles({
@@ -26,8 +26,14 @@ const AllItems = () => {
 
   const classes = useStyle();
 
+  const user = localStorage.getItem('role');
+
   const [item, setItem] = useState([]);
+  const [admin, setAdmin] = useState(null);
+
   useEffect(() => {
+    if(user==="admin")
+    setAdmin(1);
     getItem();
   }, [])
 
@@ -39,6 +45,12 @@ const AllItems = () => {
   const deleteData = async (id) => {
     await deleteItem(id);
     getItem();
+  }
+
+  const orderNow = async (id) => {
+    alert("Your Oredr is Successfully !");
+    await orderItem(id);
+    // getItem();
   }
 
   return (
@@ -59,8 +71,11 @@ const AllItems = () => {
               <TableCell>{data.name}</TableCell>
               <TableCell>{data.price}</TableCell>
               <TableCell>
+              <Button variant="contained" color="static" style={{ margin: '0px 20px 0px 0px' }} onClick={() => orderNow(data.id)}>Order Now</Button>
+              {admin &&<>
                 <Button variant="contained" color="primary" style={{ margin: '0px 0px' }} component={Link} to={`/edit/${data.id}`}>Edit</Button>
                 <Button variant="contained" color="secondary" style={{ margin: '0px 20px' }} onClick={() => deleteData(data.id)}>Delete</Button>
+              </>}
               </TableCell>
             </TableRow>
           ))
